@@ -115,14 +115,15 @@ export default function CareersPage() {
 
             <form onSubmit={submit} className="mt-6 space-y-4">
               <input type="hidden" name="role" value={selected.id} />
-              <Input name="name" label="Full name" required />
-              <Input name="email" type="email" label="Email" required />
-              <Input name="phone" label="Phone" />
-              <Input name="experience_years" label="Years of experience" />
-              <Input name="linkedin" label="LinkedIn URL" />
+              <Input name="name" label="Full name" required testId="apply-name" />
+              <Input name="email" type="email" label="Email" required testId="apply-email" />
+              <Input name="phone" label="Phone" testId="apply-phone" />
+              <Input name="experience_years" label="Years of experience" testId="apply-experience" />
+              <Input name="linkedin" label="LinkedIn URL" testId="apply-linkedin" />
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1.5">Cover letter</label>
                 <textarea name="cover_letter" rows={4}
+                          data-testid="apply-cover-letter"
                           className="w-full border border-slate-300 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-[#1E2C9A]" />
               </div>
               <div className="flex justify-end gap-2 pt-2">
@@ -142,11 +143,12 @@ export default function CareersPage() {
   );
 }
 
-function Input({ name, label, type = "text", required }) {
+function Input({ name, label, type = "text", required, testId }) {
   return (
     <div>
       <label className="block text-xs font-medium text-slate-600 mb-1.5">{label}{required && " *"}</label>
       <input name={name} type={type} required={required}
+             data-testid={testId || `apply-${name}`}
              className="w-full border border-slate-300 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-[#1E2C9A]" />
     </div>
   );

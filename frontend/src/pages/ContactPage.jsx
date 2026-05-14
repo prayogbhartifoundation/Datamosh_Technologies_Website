@@ -45,10 +45,10 @@ export default function ContactPage() {
           <div className="lg:col-span-7">
             <form onSubmit={submit} className="bg-white border border-slate-200 rounded-sm p-8 space-y-5" data-testid="contact-form">
               <div className="grid sm:grid-cols-2 gap-4">
-                <Field label="Full name *" name="name" required />
-                <Field label="Work email *" type="email" name="email" required />
-                <Field label="Company" name="company" />
-                <Field label="Phone" name="phone" />
+                <Field label="Full name *" name="name" required testId="contact-name" />
+                <Field label="Work email *" type="email" name="email" required testId="contact-email" />
+                <Field label="Company" name="company" testId="contact-company" />
+                <Field label="Phone" name="phone" testId="contact-phone" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1.5">Service interest</label>
@@ -62,6 +62,7 @@ export default function ContactPage() {
               <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1.5">How can we help? *</label>
                 <textarea required name="message" rows={5}
+                          data-testid="contact-message"
                           className="w-full border border-slate-300 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-[#1E2C9A]" />
               </div>
               <button type="submit" disabled={submitting}
@@ -113,11 +114,12 @@ export default function ContactPage() {
   );
 }
 
-function Field({ label, name, type = "text", required }) {
+function Field({ label, name, type = "text", required, testId }) {
   return (
     <div>
       <label className="block text-xs font-medium text-slate-600 mb-1.5">{label}</label>
       <input name={name} type={type} required={required}
+             data-testid={testId || `contact-${name}`}
              className="w-full border border-slate-300 px-3 py-2.5 text-sm rounded-sm focus:outline-none focus:border-[#1E2C9A]" />
     </div>
   );

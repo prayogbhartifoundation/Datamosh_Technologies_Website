@@ -151,9 +151,7 @@ async def subscribe_newsletter(payload: NewsletterCreate):
 
 @api_router.post("/careers/apply", response_model=CareerApplication)
 async def apply_career(payload: CareerApplicationCreate):
-    if not any(j.id == payload.role or j.title == payload.role for j in JOBS):
-        # Allow open application even if role doesn't match
-        pass
+    # Open applications are accepted; role may be a job_id or a free-text role.
     obj = CareerApplication(**payload.model_dump())
     await db.applications.insert_one(obj.model_dump())
     return obj
