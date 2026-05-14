@@ -1,0 +1,115 @@
+{
+  "theme": "light",
+  "archetype": "4",
+  "archetype_name": "Swiss & High-Contrast",
+  "typography": {
+    "headings": {
+      "font_family": "Manrope",
+      "weights": ["400", "700", "800"],
+      "tracking": "tracking-tight"
+    },
+    "body": {
+      "font_family": "Inter",
+      "weights": ["400", "500", "600"],
+      "tracking": "tracking-normal"
+    },
+    "hierarchy": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter leading-tight",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight",
+      "h3": "text-xl sm:text-2xl font-semibold",
+      "body": "text-base leading-relaxed"
+    }
+  },
+  "colors": {
+    "primary": "#1E2C9A",
+    "primary_foreground": "#FFFFFF",
+    "secondary": "#0F172A",
+    "secondary_foreground": "#F8FAFC",
+    "accent": "#EA580C",
+    "accent_foreground": "#FFFFFF",
+    "background": "#FFFFFF",
+    "surface": "#F8FAFC",
+    "border": "#E2E8F0",
+    "muted": "#64748B"
+  },
+  "spacing_and_layout": {
+    "section_padding": "py-24 md:py-32",
+    "container": "max-w-7xl mx-auto px-6 lg:px-8",
+    "grid_bento": "grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8",
+    "border_radius": "rounded-sm",
+    "cards": "border border-border bg-white p-8 hover:shadow-lg transition-shadow duration-300"
+  },
+  "components": {
+    "header": "Crystal Glassmorphism: bg-white/80 backdrop-blur-xl border-b border-border/50 sticky top-0 z-50",
+    "buttons": {
+      "primary": "bg-[#1E2C9A] text-white hover:bg-[#1E2C9A]/90 px-6 py-3 rounded-sm font-medium transition-all duration-200",
+      "secondary": "bg-transparent text-[#1E2C9A] border border-[#1E2C9A] hover:bg-slate-50 px-6 py-3 rounded-sm font-medium transition-all duration-200",
+      "accent": "bg-[#EA580C] text-white hover:bg-[#EA580C]/90 px-6 py-3 rounded-sm font-medium transition-all duration-200"
+    },
+    "navigation": "Use Shadcn NavigationMenu for the 8-category mega menu. Ensure smooth transitions and clear typography.",
+    "icons": "lucide-react for UI interactions, @phosphor-icons/react for professional duotone enterprise representations."
+  },
+  "media_urls": {
+    "logo": {
+      "url": "https://customer-assets.emergentagent.com/job_f919da10-345c-41ef-bb25-f20086af48f9/artifacts/bz33lwuf_blue1.png",
+      "description": "Datamosh Technologies LLP official logo",
+      "category": "branding"
+    },
+    "hero_background": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/f919da10-345c-41ef-bb25-f20086af48f9/images/a72618bb39c2ff33e34c3756f7c209378ee744634862a784ad5c60907e42344b.png",
+      "description": "Abstract cybersecurity network in deep blue with subtle orange.",
+      "category": "hero"
+    },
+    "dashboard_mockup": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/f919da10-345c-41ef-bb25-f20086af48f9/images/330f6d561ccbb898bbbf2d04c817f8f787d3df06949e8637b0dc1e8fc341a5bc.png",
+      "description": "Minimalistic enterprise dashboard UI mockup in 3D.",
+      "category": "features"
+    },
+    "compliance_shield": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/f919da10-345c-41ef-bb25-f20086af48f9/images/4e2c4425986f1f022be0b0e5bbd15aa57105e28617ec7b722d1bcccff1c5ab3e.png",
+      "description": "Premium 3D glassmorphism compliance shield.",
+      "category": "compliance"
+    },
+    "deeptech_visualization": {
+      "url": "https://static.prod-images.emergentagent.com/jobs/f919da10-345c-41ef-bb25-f20086af48f9/images/138b39e1137e1c06fef4341210bd85c8d71be43127cda01c60874a7abc85b98a.png",
+      "description": "Elegant abstract AI deep tech visualization.",
+      "category": "services"
+    },
+    "office_meeting_1": {
+      "url": "https://images.unsplash.com/photo-1557804506-669a67965ba0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjd8MHwxfHNlYXJjaHwxfHxjb3Jwb3JhdGUlMjBvZmZpY2UlMjBtZWV0aW5nfGVufDB8fHx8MTc3ODc2OTE1OXww&ixlib=rb-4.1.0&q=85",
+      "description": "Corporate office meeting",
+      "category": "about"
+    },
+    "office_meeting_2": {
+      "url": "https://images.unsplash.com/photo-1577415124269-fc1140a69e91?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjd8MHwxfHNlYXJjaHwyfHxjb3Jwb3JhdGUlMjBvZmZpY2UlMjBtZWV0aW5nfGVufDB8fHx8MTc3ODc2OTE1OXww&ixlib=rb-4.1.0&q=85",
+      "description": "Two men shaking hands in a conference room",
+      "category": "trust"
+    },
+    "server_room": {
+      "url": "https://images.unsplash.com/photo-1744868562210-fffb7fa882d9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzN8MHwxfHNlYXJjaHwxfHxzZXJ2ZXIlMjByb29tJTIwZGF0YSUyMGNlbnRlcnxlbnwwfHx8fDE3Nzg3NjkxNTl8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Server room data center with cables",
+      "category": "industries"
+    },
+    "portrait_1": {
+      "url": "https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDB8fHx8MTc3ODc2OTE1OXww&ixlib=rb-4.1.0&q=85",
+      "description": "Professional business portrait of a man",
+      "category": "testimonials"
+    },
+    "portrait_2": {
+      "url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwyfHxwcm9mZXNzaW9uYWwlMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDB8fHx8MTc3ODc2OTE1OXww&ixlib=rb-4.1.0&q=85",
+      "description": "Professional business portrait of a woman",
+      "category": "testimonials"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Install specific dependencies: `yarn add lucide-react framer-motion @radix-ui/react-navigation-menu clsx tailwind-merge`",
+    "Use Manrope for headings and Inter for body text.",
+    "Implement the 8-category mega menu using Shadcn's NavigationMenu. Include: VAPT/Cyber, Compliance/GRC, Deep Tech & AI, Digital Transformation, IoT/OT, Green Energy/ESG, Startup, Training.",
+    "Design sections with an Enterprise/Swiss aesthetic: sharp corners (`rounded-sm`), 1px borders, high-contrast typography, and generous spacing.",
+    "The Hero section must feature the `hero_background` image with a suitable overlay to maintain text readability. Use `bg-white/90` or `bg-slate-900/60` depending on the block theme, but ensure strict APCA contrast.",
+    "Use the `dashboard_mockup` image in the 'Deep Tech & AI' or 'Digital Transformation' sections to highlight technical excellence.",
+    "Testimonial sections should utilize the professional portrait images provided, maintaining an authoritative, C-suite tone.",
+    "Add `data-testid` to all actionable components (buttons, links, inputs).",
+    "Avoid over-animation; stick to subtle `framer-motion` enter animations (fade up) and hover state color transitions."
+  ]
+}
