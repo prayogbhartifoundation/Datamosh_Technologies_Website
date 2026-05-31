@@ -66,9 +66,7 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 grid grid-cols-2 md:grid-cols-12 gap-10">
         <div className="col-span-2 md:col-span-4">
-          <div className="bg-[#1E2C9A] inline-flex p-3 rounded-sm">
-            <img src={COMPANY.logo} alt={COMPANY.name} className="h-9" />
-          </div>
+          <img src={COMPANY.logoOnDark} alt={COMPANY.name} className="h-12 w-auto object-contain" />
           <p className="text-slate-400 mt-6 text-sm leading-relaxed max-w-xs">
             {COMPANY.name}. A cybersecurity, compliance and deep-tech consulting firm
             building resilient digital enterprises.

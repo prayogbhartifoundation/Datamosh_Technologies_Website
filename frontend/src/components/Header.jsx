@@ -25,11 +25,11 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-6">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3" data-testid="logo-link">
+          <Link to="/" className="flex items-center gap-3 shrink-0" data-testid="logo-link">
             <img
               src={COMPANY.logo}
               alt={COMPANY.name}
-              className="h-9 w-auto"
+              className="h-11 w-auto object-contain"
             />
           </Link>
 
@@ -141,26 +141,34 @@ function MegaMenu({ onClose }) {
       <div className="w-[min(1100px,92vw)] bg-white border border-slate-200 shadow-2xl rounded-sm">
         <div className="grid grid-cols-12">
           {/* Left column intro */}
-          <div className="col-span-4 bg-[#0F1758] text-white p-8">
-            <div className="text-xs uppercase tracking-widest text-orange-300 mb-3">
-              Our Capabilities
+          <div className="col-span-4 bg-[#0F1758] text-white p-8 relative overflow-hidden">
+            <img
+              src={COMPANY.logoMark}
+              alt=""
+              aria-hidden="true"
+              className="absolute -right-6 -bottom-6 h-32 w-32 opacity-20 pointer-events-none"
+            />
+            <div className="relative">
+              <div className="text-xs uppercase tracking-widest text-orange-300 mb-3">
+                Our Capabilities
+              </div>
+              <h3 className="font-display text-2xl font-bold leading-tight mb-3">
+                Eight specialised practices.
+                <br />One integrated security partner.
+              </h3>
+              <p className="text-sm text-slate-200/80 leading-relaxed mb-6">
+                Datamosh combines offensive security, compliance, AI engineering and
+                modernization expertise — delivered by a single accountable team.
+              </p>
+              <Link
+                to="/services/cybersecurity"
+                onClick={onClose}
+                className="inline-flex items-center gap-2 text-sm font-medium text-orange-300 hover:text-white transition"
+                data-testid="megamenu-explore-all"
+              >
+                Explore all services <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
-            <h3 className="font-display text-2xl font-bold leading-tight mb-3">
-              Eight specialised practices.
-              <br />One integrated security partner.
-            </h3>
-            <p className="text-sm text-slate-200/80 leading-relaxed mb-6">
-              Datamosh combines offensive security, compliance, AI engineering and
-              modernization expertise — delivered by a single accountable team.
-            </p>
-            <Link
-              to="/services/cybersecurity"
-              onClick={onClose}
-              className="inline-flex items-center gap-2 text-sm font-medium text-orange-300 hover:text-white transition"
-              data-testid="megamenu-explore-all"
-            >
-              Explore all services <ArrowRight className="h-4 w-4" />
-            </Link>
           </div>
 
           {/* Right grid of categories */}
