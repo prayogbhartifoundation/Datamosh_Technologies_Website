@@ -26,8 +26,8 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-6">
           {/* Logo */}
-          <Link to="/" className="flex items-center shrink-0 text-[#0F1758]" data-testid="logo-link">
-            <Logo variant="full" />
+          <Link to="/" className="flex items-center shrink-0" data-testid="logo-link">
+            <Logo variant="light" className="h-12 w-auto" />
           </Link>
 
           {/* Desktop nav */}
@@ -139,8 +139,8 @@ function MegaMenu({ onClose }) {
         <div className="grid grid-cols-12">
           {/* Left column intro */}
           <div className="col-span-4 bg-[#0F1758] text-white p-8 relative overflow-hidden">
-            <div className="absolute -right-8 -bottom-8 opacity-10 text-white pointer-events-none">
-              <Logo variant="mark" className="h-40 w-40" />
+            <div className="absolute -right-10 -bottom-10 opacity-10 text-white pointer-events-none">
+              <Logo variant="mark" className="h-48 w-48" />
             </div>
             <div className="relative">
               <div className="text-xs uppercase tracking-widest text-orange-300 mb-3">
