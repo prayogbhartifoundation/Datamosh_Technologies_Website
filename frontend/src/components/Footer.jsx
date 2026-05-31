@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Linkedin, Twitter, Mail, MapPin, Phone, ArrowRight, ShieldCheck } from "lucide-react";
 import { COMPANY, SERVICE_CATEGORIES, COMPLIANCE_FRAMEWORKS } from "@/data/site";
+import Logo from "@/components/Logo";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -66,7 +67,9 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 grid grid-cols-2 md:grid-cols-12 gap-10">
         <div className="col-span-2 md:col-span-4">
-          <img src={COMPANY.logoOnDark} alt={COMPANY.name} className="h-12 w-auto object-contain" />
+          <div className="text-white">
+            <Logo variant="full" />
+          </div>
           <p className="text-slate-400 mt-6 text-sm leading-relaxed max-w-xs">
             {COMPANY.name}. A cybersecurity, compliance and deep-tech consulting firm
             building resilient digital enterprises.

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
 import { COMPANY, SERVICE_CATEGORIES } from "@/data/site";
+import Logo from "@/components/Logo";
 
 const NAV = [
   { label: "Services", mega: true },
@@ -25,12 +26,8 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-6">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 shrink-0" data-testid="logo-link">
-            <img
-              src={COMPANY.logo}
-              alt={COMPANY.name}
-              className="h-11 w-auto object-contain"
-            />
+          <Link to="/" className="flex items-center shrink-0 text-[#0F1758]" data-testid="logo-link">
+            <Logo variant="full" />
           </Link>
 
           {/* Desktop nav */}
@@ -142,12 +139,9 @@ function MegaMenu({ onClose }) {
         <div className="grid grid-cols-12">
           {/* Left column intro */}
           <div className="col-span-4 bg-[#0F1758] text-white p-8 relative overflow-hidden">
-            <img
-              src={COMPANY.logoMark}
-              alt=""
-              aria-hidden="true"
-              className="absolute -right-6 -bottom-6 h-32 w-32 opacity-20 pointer-events-none"
-            />
+            <div className="absolute -right-8 -bottom-8 opacity-10 text-white pointer-events-none">
+              <Logo variant="mark" className="h-40 w-40" />
+            </div>
             <div className="relative">
               <div className="text-xs uppercase tracking-widest text-orange-300 mb-3">
                 Our Capabilities

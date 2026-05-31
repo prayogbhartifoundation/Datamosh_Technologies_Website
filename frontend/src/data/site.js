@@ -71,7 +71,7 @@ export const SERVICE_CATEGORIES = [
       { slug: "pci-dss", name: "PCI DSS Compliance", icon: Banknote },
       { slug: "iso-42001", name: "ISO 42001 AI Management", icon: Brain },
       { slug: "nist-csf", name: "NIST CSF 2.0", icon: Layers },
-      { slug: "dpdp-act", name: "DPDP Act 2023", icon: FileSearch },
+      { slug: "dpdp-act", name: "DPDP Act 2023", icon: FileSearch, hasCustomContent: true },
       { slug: "cert-in-audit", name: "CERT-In Audit", icon: ShieldCheck },
       { slug: "rbi-is-audit", name: "RBI IS Audit", icon: Landmark },
       { slug: "irdai-compliance", name: "IRDAI Compliance Audit", icon: Landmark },
