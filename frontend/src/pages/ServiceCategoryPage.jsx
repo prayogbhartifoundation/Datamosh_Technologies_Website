@@ -1,13 +1,32 @@
 import { Link, useParams, Navigate } from "react-router-dom";
-import { ArrowRight, ChevronRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, ChevronRight, CheckCircle2, HelpCircle } from "lucide-react";
 import { SERVICE_CATEGORIES } from "@/data/site";
-import SEO, { serviceSchema, breadcrumbSchema } from "@/components/SEO";
+import SEO, { serviceSchema, faqSchema, breadcrumbSchema } from "@/components/SEO";
 
 export default function ServiceCategoryPage() {
   const { categorySlug } = useParams();
   const cat = SERVICE_CATEGORIES.find(c => c.slug === categorySlug);
   if (!cat) return <Navigate to="/" replace />;
   const Icon = cat.icon;
+
+  const faqs = [
+    {
+      q: `What does Datamosh's ${cat.name} practice cover?`,
+      a: `Our ${cat.name} practice covers ${cat.services.slice(0, 5).map(s => s.name).join(", ")} and ${cat.services.length - 5}+ more specialised services. ${cat.description}`,
+    },
+    {
+      q: "Who leads engagements?",
+      a: "Every engagement is led by a senior practitioner with the relevant industry-recognised certifications (OSCP, CISSP, CIPP/E, ISO 27001 LA, CISA). No offshore handoffs.",
+    },
+    {
+      q: "What is the typical engagement duration?",
+      a: "Most engagements run 3–6 weeks end-to-end, including planning, execution, reporting and remediation re-testing. Larger estates extend with parallel workstreams.",
+    },
+    {
+      q: "Which regulations and frameworks do you map deliverables to?",
+      a: "ISO 27001, ISO 27701, SOC 2, PCI DSS, GDPR, DPDP Act 2023, HIPAA, RBI IS Audit, SEBI, IRDAI, NIST CSF 2.0 and CERT-In — among others, based on your operating jurisdiction.",
+    },
+  ];
 
   return (
     <div data-testid="service-category-page">
@@ -22,6 +41,7 @@ export default function ServiceCategoryPage() {
             category: cat.name,
             url: `/services/${cat.slug}`,
           }),
+          faqSchema(faqs),
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Services", path: "/services/cybersecurity" },
@@ -132,6 +152,28 @@ export default function ServiceCategoryPage() {
                 data-testid="category-cta-consult">
             Schedule a call <ArrowRight className="h-4 w-4" />
           </Link>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 lg:py-20 bg-slate-50" data-testid="category-faq">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          <div className="text-xs uppercase tracking-widest text-[#1E2C9A] mb-3 flex items-center gap-2">
+            <HelpCircle className="h-3.5 w-3.5" /> FAQ
+          </div>
+          <h2 className="font-display text-3xl lg:text-4xl font-bold tracking-tight text-slate-900">
+            Common questions about {cat.name}
+          </h2>
+          <div className="mt-8 space-y-3">
+            {faqs.map((f, i) => (
+              <details key={i} className="group border border-slate-200 bg-white rounded-sm p-5">
+                <summary className="cursor-pointer font-display font-semibold text-slate-900 flex justify-between items-center">
+                  {f.q}<ChevronRight className="h-4 w-4 text-slate-400 group-open:rotate-90 transition" />
+                </summary>
+                <p className="mt-3 text-sm text-slate-600 leading-relaxed">{f.a}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
     </div>

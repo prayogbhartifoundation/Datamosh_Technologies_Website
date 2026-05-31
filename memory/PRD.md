@@ -51,3 +51,18 @@ Premium, enterprise-grade corporate website for Datamosh Technologies LLP — a 
 - Address auth on GET /api/contact before any production push
 - Add SEO meta tags per page (react-helmet-async)
 - Consider returning 201 on POST creates if strictly REST-conformant API is needed
+
+## Iteration 2 — Implemented (Dec 2025)
+- ✅ **Admin auth** via `x-admin-key` header (env: `ADMIN_API_KEY`). Protects `GET /api/contact`, `GET /api/bookings`, `GET /api/leads`, `POST /api/resources`, `DELETE /api/resources/{slug}`. Public POSTs remain open.
+- ✅ **SEO + JSON-LD schema** per page via `react-helmet-async` + `<SEO />` component. Emits Organization on every page; Service + FAQPage + BreadcrumbList on category pages; Service + FAQPage + BreadcrumbList on service detail; Article + BreadcrumbList on resource detail. OpenGraph + Twitter card meta included.
+- ✅ **Blog / CMS backend** — `GET /api/resources`, `GET /api/resources/{slug}`, `POST /api/resources` (admin), `DELETE /api/resources/{slug}` (admin). Startup hook idempotently seeds 3 articles. Frontend Resources page fetches from API.
+- ✅ **Booking widget** on Contact page — tabbed UI (Booking default / Send a message). Day picker (next 7 business days) + 6 IST slots + lead form. `POST /api/bookings` persists to MongoDB; confirmation panel rendered on success.
+- ✅ **Resource lead-capture gating** — premium articles render `<LeadGate />` until a name/email/company is submitted via `POST /api/leads`. Unlock stored in `localStorage` under `datamosh.unlocked.resources`.
+- ✅ **Test coverage**: 38/38 backend pytest tests passing (`test_datamosh_api.py` + `test_iteration2.py`). All frontend flows verified.
+
+## Backlog (after iteration 2)
+- P1: Server-side gating enforcement (currently soft-gate via localStorage)
+- P1: Rate-limit / dedupe POST /api/leads and /api/bookings to prevent spam
+- P2: Switch POST creates to return 201 (REST consistency)
+- P2: Admin dashboard UI for viewing leads / bookings / contacts
+- P2: Email delivery integration (Resend or SendGrid) for booking confirmations + lead receipts
