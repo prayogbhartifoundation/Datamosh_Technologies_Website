@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { ArrowRight, Briefcase, MapPin, Clock } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -41,6 +42,11 @@ export default function CareersPage() {
 
   return (
     <div data-testid="careers-page">
+      <SEO
+        title="Careers"
+        description="Engineer the security of regulated digital enterprises. Datamosh is hiring across cybersecurity, GRC, AI and cloud — senior-led delivery, real ownership."
+        path="/careers"
+      />
       <section className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 lg:py-28">
           <div className="text-xs uppercase tracking-widest text-[#1E2C9A] mb-3">Careers</div>

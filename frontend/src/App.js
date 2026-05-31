@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { Toaster } from "sonner";
 
 import Header from "@/components/Header";
@@ -13,6 +14,7 @@ import AboutPage from "@/pages/AboutPage";
 import CareersPage from "@/pages/CareersPage";
 import ContactPage from "@/pages/ContactPage";
 import ResourcesPage from "@/pages/ResourcesPage";
+import ResourceDetailPage from "@/pages/ResourceDetailPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -32,23 +34,26 @@ function Layout({ children }) {
 
 function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Toaster position="top-right" richColors closeButton />
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services/:categorySlug" element={<ServiceCategoryPage />} />
-          <Route path="/services/:categorySlug/:serviceSlug" element={<ServiceDetailPage />} />
-          <Route path="/industries" element={<IndustriesPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/careers" element={<CareersPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/resources" element={<ResourcesPage />} />
-          <Route path="*" element={<Home />} />
-        </Routes>
-      </Layout>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Toaster position="top-right" richColors closeButton />
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services/:categorySlug" element={<ServiceCategoryPage />} />
+            <Route path="/services/:categorySlug/:serviceSlug" element={<ServiceDetailPage />} />
+            <Route path="/industries" element={<IndustriesPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/careers" element={<CareersPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/resources" element={<ResourcesPage />} />
+            <Route path="/resources/:slug" element={<ResourceDetailPage />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

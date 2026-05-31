@@ -1,6 +1,7 @@
 import { Link, useParams, Navigate } from "react-router-dom";
 import { ArrowRight, ChevronRight, CheckCircle2 } from "lucide-react";
 import { SERVICE_CATEGORIES } from "@/data/site";
+import SEO, { serviceSchema, breadcrumbSchema } from "@/components/SEO";
 
 export default function ServiceCategoryPage() {
   const { categorySlug } = useParams();
@@ -10,6 +11,24 @@ export default function ServiceCategoryPage() {
 
   return (
     <div data-testid="service-category-page">
+      <SEO
+        title={cat.name}
+        description={cat.description}
+        path={`/services/${cat.slug}`}
+        schema={[
+          serviceSchema({
+            name: cat.name,
+            description: cat.description,
+            category: cat.name,
+            url: `/services/${cat.slug}`,
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services/cybersecurity" },
+            { name: cat.name, path: `/services/${cat.slug}` },
+          ]),
+        ]}
+      />
       {/* Hero */}
       <section className="bg-[#0F1758] text-white relative overflow-hidden">
         <div className="absolute inset-0 dot-grid opacity-20" />

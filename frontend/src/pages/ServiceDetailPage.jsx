@@ -2,6 +2,7 @@ import { Link, useParams, Navigate } from "react-router-dom";
 import { ArrowRight, ChevronRight, CheckCircle2, FileText, Target, Wrench, Award, HelpCircle, ShieldCheck, BookOpen, Cog } from "lucide-react";
 import { SERVICE_CATEGORIES, COMPLIANCE_FRAMEWORKS } from "@/data/site";
 import { SERVICE_CONTENT } from "@/data/service-content";
+import SEO, { serviceSchema, faqSchema, breadcrumbSchema } from "@/components/SEO";
 
 export default function ServiceDetailPage() {
   const { categorySlug, serviceSlug } = useParams();
@@ -63,6 +64,25 @@ export default function ServiceDetailPage() {
 
   return (
     <div data-testid="service-detail-page">
+      <SEO
+        title={svc.name}
+        description={overview}
+        path={`/services/${cat.slug}/${svc.slug}`}
+        schema={[
+          serviceSchema({
+            name: svc.name,
+            description: overview,
+            category: cat.name,
+            url: `/services/${cat.slug}/${svc.slug}`,
+          }),
+          faqSchema(faqs),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: cat.name, path: `/services/${cat.slug}` },
+            { name: svc.name, path: `/services/${cat.slug}/${svc.slug}` },
+          ]),
+        ]}
+      />
       {/* Hero */}
       <section className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24">
@@ -238,6 +258,24 @@ function CustomServiceDetail({ cat, svc, Icon, content }) {
   const pillarIcons = [BookOpen, ShieldCheck, FileText];
   return (
     <div data-testid="service-detail-page">
+      <SEO
+        title={svc.name}
+        description={content.intro.slice(0, 220)}
+        path={`/services/${cat.slug}/${svc.slug}`}
+        schema={[
+          serviceSchema({
+            name: svc.name,
+            description: content.intro.slice(0, 280),
+            category: cat.name,
+            url: `/services/${cat.slug}/${svc.slug}`,
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: cat.name, path: `/services/${cat.slug}` },
+            { name: svc.name, path: `/services/${cat.slug}/${svc.slug}` },
+          ]),
+        ]}
+      />
       {/* Hero */}
       <section className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24">

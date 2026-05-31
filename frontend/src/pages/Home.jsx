@@ -6,6 +6,7 @@ import {
   PARTNERS, STATS, TESTIMONIALS
 } from "@/data/site";
 import StatCounter from "@/components/StatCounter";
+import SEO from "@/components/SEO";
 
 const fade = {
   hidden: { opacity: 0, y: 16 },
@@ -15,6 +16,11 @@ const fade = {
 export default function Home() {
   return (
     <div data-testid="home-page">
+      <SEO
+        title="Cybersecurity, Compliance & Deep Tech Consulting"
+        description="Datamosh Technologies LLP delivers enterprise-grade cybersecurity, regulatory compliance, AI governance and digital transformation for regulated organisations."
+        path="/"
+      />
       {/* HERO */}
       <section className="relative overflow-hidden bg-white">
         <div className="absolute inset-0 grid-lines opacity-60 pointer-events-none" />

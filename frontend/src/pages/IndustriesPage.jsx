@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { INDUSTRIES } from "@/data/site";
+import SEO from "@/components/SEO";
 
 export default function IndustriesPage() {
   return (
     <div data-testid="industries-page">
+      <SEO
+        title="Industries"
+        description="Purpose-built cybersecurity and compliance programmes for BFSI, healthcare, government, telecom, manufacturing, retail and 6 more regulated sectors."
+        path="/industries"
+      />
       <section className="bg-[#0F1758] text-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 lg:py-28">
           <div className="text-xs uppercase tracking-widest text-orange-300 mb-3">Industries</div>

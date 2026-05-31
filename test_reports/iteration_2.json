@@ -1,0 +1,52 @@
+{
+  "summary": "Iteration 2 testing complete. Backend: 38/38 pytest tests pass (after updating 1 iteration-1 test to expect new admin-auth behavior on GET /api/contact). All new endpoints (bookings, leads, resources CRUD, admin auth) work correctly. Frontend: all 8 new flows verified — Contact tabbed UI (Booking default + switching), BookingWidget end-to-end (day/slot pickers + submit + confirmation panel), Resources page lists 3 seeded items with GATED badges on the right two, ResourceDetail gated flow (LeadGate -> submit -> unlock + localStorage persistence across reload), dpdp-readiness shows body without gate, SEO meta + JSON-LD (Organization on every page, Article + BreadcrumbList on resource detail), mobile 390px viewport responsive. Minor SEO gap: service category pages have Service + BreadcrumbList but FAQPage schema is missing (spec asked for Service+FAQPage+BreadcrumbList). Deeper service slug pages (e.g., /services/cybersecurity/penetration-testing) appear not implemented — title falls back to default and only Organization schema present.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "POST /api/bookings", "issue": "Returns 200 on create; REST convention is 201. Same pattern across /contact, /newsletter, /careers/apply, /leads, /resources (non-blocking)."},
+      {"endpoint": "POST /api/leads", "issue": "No EmailStr-uniqueness or rate-limit; same email can spam-submit. Not blocking for MVP but flag for production."},
+      {"endpoint": "POST /api/resources", "issue": "Field alias 'readTime' is accepted on input (good), but list/get endpoints expose snake_case 'read_time' (Pydantic default). Frontend already handles both (`r.read_time || r.readTime`). Consistent serialization with by_alias=True would be cleaner."},
+      {"endpoint": "require_admin", "issue": "Returns 503 if ADMIN_API_KEY is empty rather than 401; acceptable but document so ops doesn't accidentally ship without the env var."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Service category pages (/services/:slug)", "issues": ["FAQPage JSON-LD schema is NOT present — spec required Service + FAQPage + BreadcrumbList. Currently only Service + BreadcrumbList + Organization are emitted."]},
+      {"screen": "Deeper service detail (e.g., /services/cybersecurity/penetration-testing)", "issues": ["Route appears to fall back to the home page — title becomes the default 'Cybersecurity, Compliance & Deep Tech Consulting — Datamosh Technologies LLP' and only Organization JSON-LD is present. Either the route is not registered or per-page SEO is not wired for sub-service slugs. Verify whether nested service slugs are intended in iteration 2 scope."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration2.py",
+    "/app/backend/tests/test_datamosh_api.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Add FAQPage JSON-LD schema to service category pages via faqSchema() helper (already exists in SEO.jsx) — pass faqs array on each /services/:slug page to satisfy spec.",
+    "Confirm whether nested service slugs (e.g., /services/cybersecurity/penetration-testing) are in scope. If yes, register routes and wire SEO; if no, ensure unknown paths redirect to /services rather than falling through to home with wrong title.",
+    "(Optional/minor) Switch POST creates to return 201 across the board for REST consistency.",
+    "(Optional/minor) Add basic rate-limiting / dedupe on POST /api/leads to prevent spam unlocks.",
+    "Document ADMIN_API_KEY rotation procedure — current key is in .env and prefixed 'change_me'."
+  ],
+  "critical_code_review_comments": [
+    "server.py: clean Pydantic v2 models with ConfigDict(extra='ignore'); Mongo _id correctly projected out everywhere ({'_id': 0}); good async/await usage throughout.",
+    "Startup seeding is idempotent (checks count==0) — safe for restarts.",
+    "Admin auth via simple x-admin-key header is fine for MVP. For production: rotate via env, consider HMAC + IP allow-list or move to Bearer/JWT.",
+    "BookingWidget: day chips computed via nextBusinessDays() — uses local timezone for fmtDate via toISOString which converts to UTC, may cause off-by-one for users near IDL or late-night IST. Minor — flag only.",
+    "ResourceDetailPage: localStorage key well-scoped ('datamosh.unlocked.resources'). Note that unlock can be bypassed via devtools — acceptable for soft gating, but server-side guard would be needed for true paywall.",
+    "SEO.jsx: clean, helper functions are exported and used correctly; Organization JSON-LD always included. Single concern: image-only seo prop overrides og:image, which is fine — but twitter:image also uses same `og` var (good).",
+    "test_datamosh_api.py iteration-1 test that previously asserted public GET /api/contact has been updated to match new admin-gated behavior (this is a test fix, not a code change)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration2.py (new — 23 tests covering bookings/leads/resources/admin-auth/regression)",
+    "/app/backend/tests/test_datamosh_api.py (updated test_contact_list to expect 401 without admin key, 200 with)"
+  ],
+  "success_rate": {"backend": "100% (38/38)", "frontend": "100% on new flows; 1 SEO spec gap (FAQPage) on service category pages"},
+  "test_credentials": "ADMIN_API_KEY=dmosh_admin_2026_secure_key_change_me (header: x-admin-key). Documented in /app/backend/.env. /app/memory/test_credentials.md is empty — main agent should add the admin key reference there for future agents.",
+  "seed_data_creation": "Backend startup hook seeds 3 resources only if empty. Test runs created TEST_-prefixed contacts, bookings, leads, applications, newsletter entries, and one ephemeral resource (created+deleted within test_create_resource_with_admin).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend URL: https://nexus-enterprise-ai-1.preview.emergentagent.com. Admin key: dmosh_admin_2026_secure_key_change_me (header x-admin-key). Regression suite: /app/backend/tests/test_datamosh_api.py + /app/backend/tests/test_iteration2.py (38 tests total). All frontend flows have proper data-testid coverage. localStorage key for unlocked resources: 'datamosh.unlocked.resources'. Open items: (1) FAQPage schema missing on service category pages, (2) nested /services/:cat/:slug paths fall back to home — confirm route intent with main agent.",
+  "rca of the issue": "N/A — no blocking issues. Two minor SEO/route findings documented above for main agent to triage."
+}

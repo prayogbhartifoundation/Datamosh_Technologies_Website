@@ -64,10 +64,13 @@ class TestContact:
         r = client.post(f"{API}/contact", json={"email": "a@b.com"})
         assert r.status_code == 422
 
-    def test_contact_list(self, client):
+    def test_contact_list_admin_only(self, client):
+        # As of iteration 2, GET /api/contact requires admin key
         r = client.get(f"{API}/contact")
-        assert r.status_code == 200
-        assert isinstance(r.json(), list)
+        assert r.status_code == 401
+        r2 = client.get(f"{API}/contact", headers={"x-admin-key": "dmosh_admin_2026_secure_key_change_me"})
+        assert r2.status_code == 200
+        assert isinstance(r2.json(), list)
 
 
 # ---------- newsletter ----------

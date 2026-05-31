@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
 import { CheckCircle2, ArrowRight, Globe2, Award, Users, Lightbulb } from "lucide-react";
 import { COMPANY } from "@/data/site";
+import SEO from "@/components/SEO";
 
 export default function AboutPage() {
   return (
     <div data-testid="about-page">
+      <SEO
+        title="About"
+        description="Datamosh Technologies LLP is a senior-led cybersecurity, compliance and deep-tech consulting firm engineered for regulated enterprises."
+        path="/about"
+      />
       <section className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 lg:py-28 grid lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7">
