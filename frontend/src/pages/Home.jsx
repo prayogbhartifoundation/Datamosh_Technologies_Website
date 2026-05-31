@@ -122,7 +122,7 @@ export default function Home() {
           <div className="max-w-3xl">
             <div className="text-xs uppercase tracking-widest text-[#1E2C9A] mb-3">What we do</div>
             <h2 className="font-display text-3xl lg:text-5xl font-bold tracking-tight text-slate-900 text-balance">
-              Eight specialised practices. One accountable security partner.
+              Specialised practices. One accountable partner.
             </h2>
             <p className="text-slate-600 mt-4 text-lg leading-relaxed">
               From offensive security and regulatory compliance to applied AI and infrastructure modernization —
@@ -130,7 +130,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {SERVICE_CATEGORIES.map((cat, i) => {
               const Icon = cat.icon;
               return (

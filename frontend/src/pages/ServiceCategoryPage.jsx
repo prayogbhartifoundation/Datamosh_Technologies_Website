@@ -1,6 +1,6 @@
 import { Link, useParams, Navigate } from "react-router-dom";
 import { ArrowRight, ChevronRight, CheckCircle2, HelpCircle } from "lucide-react";
-import { SERVICE_CATEGORIES } from "@/data/site";
+import { SERVICE_CATEGORIES, CATEGORY_IMAGES } from "@/data/site";
 import SEO, { serviceSchema, faqSchema, breadcrumbSchema } from "@/components/SEO";
 
 export default function ServiceCategoryPage() {
@@ -50,9 +50,15 @@ export default function ServiceCategoryPage() {
         ]}
       />
       {/* Hero */}
-      <section className="bg-[#0F1758] text-white relative overflow-hidden">
-        <div className="absolute inset-0 dot-grid opacity-20" />
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-20 lg:py-28">
+      <section className="relative bg-[#0F1758] text-white overflow-hidden">
+        <div className="absolute inset-0">
+          {CATEGORY_IMAGES[cat.slug] && (
+            <img src={CATEGORY_IMAGES[cat.slug]} alt="" className="w-full h-full object-cover opacity-25" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0F1758] via-[#0F1758]/85 to-[#0F1758]/40" />
+          <div className="absolute inset-0 dot-grid opacity-10" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-32">
           <div className="flex items-center gap-2 text-xs text-slate-300 mb-6">
             <Link to="/" className="hover:text-white">Home</Link>
             <ChevronRight className="h-3 w-3" />
@@ -60,24 +66,32 @@ export default function ServiceCategoryPage() {
             <ChevronRight className="h-3 w-3" />
             <span className="text-orange-300">{cat.name}</span>
           </div>
-          <div className="flex items-start gap-5">
-            <div className="h-14 w-14 flex items-center justify-center bg-white/8 border border-white/15 rounded-sm">
+          <div className="flex items-start gap-5 max-w-4xl">
+            <div className="h-14 w-14 flex items-center justify-center bg-white/8 border border-white/15 rounded-sm shrink-0">
               <Icon className="h-6 w-6 text-orange-300" />
             </div>
             <div>
               <h1 className="font-display text-4xl lg:text-6xl font-extrabold tracking-tighter text-balance">
                 {cat.name}
               </h1>
-              <p className="mt-4 text-slate-300 text-lg max-w-3xl leading-relaxed">
+              <p className="mt-5 text-slate-200/90 text-lg max-w-3xl leading-relaxed">
                 {cat.description}
               </p>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Link to="/contact" className="inline-flex items-center gap-2 bg-[#EA580C] hover:bg-[#c2410c] text-white px-6 py-3 text-sm font-medium rounded-sm transition" data-testid="category-hero-cta">
+                  Schedule consultation <ArrowRight className="h-4 w-4" />
+                </Link>
+                <a href="#services" className="inline-flex items-center gap-2 border border-white/25 text-white px-6 py-3 text-sm font-medium rounded-sm hover:bg-white/5 transition">
+                  Explore services
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Services grid */}
-      <section className="py-16 lg:py-24 bg-white">
+      <section id="services" className="py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-xs uppercase tracking-widest text-[#1E2C9A] mb-3">Service portfolio</div>
           <h2 className="font-display text-3xl lg:text-4xl font-bold tracking-tight text-slate-900">

@@ -147,12 +147,12 @@ function MegaMenu({ onClose }) {
                 Our Capabilities
               </div>
               <h3 className="font-display text-2xl font-bold leading-tight mb-3">
-                Eight specialised practices.
-                <br />One integrated security partner.
+                Specialised practices.
+                <br />One integrated partner.
               </h3>
               <p className="text-sm text-slate-200/80 leading-relaxed mb-6">
-                Datamosh combines offensive security, compliance, AI engineering and
-                modernization expertise — delivered by a single accountable team.
+                Datamosh combines offensive security, compliance, AI engineering, financial
+                advisory and modernization expertise — delivered by a single accountable team.
               </p>
               <Link
                 to="/services/cybersecurity"

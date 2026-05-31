@@ -1,0 +1,41 @@
+{
+  "summary": "Iteration 3 testing complete. Backend regression: 38/38 pytest tests pass (no backend changes this iteration; all previous endpoints stable). Frontend: all 7 iteration-3 acceptance criteria verified. (1) /services/financial-advisory FAAS landing page: h1 'Financial Accounting Advisory', 20 service items in grid, 4 FAQs, hero image rendered, all 4 JSON-LD schemas present (Organization + Service + FAQPage + BreadcrumbList). (2) /services/financial-advisory/ifrs-ind-as-advisory custom detail: intro contains 'Big-4-grade technical accounting', 3 pillars rendered (Technical Accounting Advisory, IPO Readiness & Capital Markets, Finance Transformation & CFO Advisory), all 6 automation tools rendered (Close Calendar, Account Reconciliation, Lease Accounting Engine, Revenue Recognition Automation, ICFR/SOX Workflow, ESG Reporting Workbench), hero image on right column. (3) Generic detail (/services/cybersecurity/web-app-security-testing) now shows Unsplash hero image above Engagement card. (4) DPDP page (/services/compliance-grc/dpdp-act) shows hero image above Programme highlights. (5) Mega menu shows all 9 categories incl. 'Financial Accounting Advisory' card; intro reads 'Specialised practices. One integrated partner.' — old 'Eight ...' wording removed. (6) Home page shows all 9 category cards. (7) Regression: /industries, /about, /careers, /contact, /resources, /resources/zero-trust-bfsi-2025 all load with correct titles. Mobile (390px) viewport renders FAAS landing with all 20 items. One copy/UX bug found: the IFRS detail page reuses the same CustomServiceDetail React component as DPDP and the section heading 'Three integrated practices — engineered for DPDP Act readiness.' is hardcoded in JSX, so it shows on the IFRS/FAAS page too (should be parameterised).",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "(carried from iteration 2) POST /api/bookings, /contact, /newsletter, /careers/apply, /leads, /resources", "issue": "Return 200 on create; REST convention is 201. Non-blocking."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "ServiceDetailPage.jsx CustomServiceDetail (line ~339)", "issue": "Hardcoded section heading 'Three integrated practices — engineered for DPDP Act readiness.' is rendered for ALL custom-content service detail pages, including /services/financial-advisory/ifrs-ind-as-advisory. The IFRS page shouldn't reference DPDP. Fix: read content.pillarsHeading from service-content.js, or derive from svc.name.", "selector": "[data-testid=\"dpdp-pillars\"] h2", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_datamosh_api.py",
+    "/app/backend/tests/test_iteration2.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Parameterise the 'Three integrated practices — engineered for DPDP Act readiness.' heading in ServiceDetailPage.jsx CustomServiceDetail so the IFRS/FAAS page shows e.g. 'Three integrated practices — engineered for Big-4-grade FAAS delivery.' Easiest: add `pillarsHeading` to each entry in /app/frontend/src/data/service-content.js and read content.pillarsHeading with a fallback.",
+    "Also consider: the [data-testid=\"dpdp-pillars\"] and [data-testid=\"dpdp-automation\"] test-ids are DPDP-specific but are now applied to every custom detail page including IFRS. Rename to 'custom-pillars' / 'custom-automation' to avoid confusing future tests.",
+    "(Carryover from iter-2) Optional: switch POST creates to return 201 for REST consistency."
+  ],
+  "critical_code_review_comments": [
+    "ServiceCategoryPage.jsx is clean: faqs are local, faqSchema/breadcrumbSchema both included — fixes the iteration-2 FAQPage gap. ",
+    "ServiceDetailPage.jsx CustomServiceDetail correctly falls back to CATEGORY_IMAGES[cat.slug] when content.image is absent. Good defensive defaulting.",
+    "site.js CATEGORY_IMAGES map is the single source of truth and is keyed by category slug — clean.",
+    "Unsplash images are CDN-hosted and unoptimised; for production, consider next-gen formats (WebP/AVIF) and width-appropriate srcset for the hero <img> in both ServiceCategoryPage hero and ServiceDetailPage right column. Currently a full-resolution image is fetched even on mobile (~390px) — perf hit but not a correctness bug.",
+    "Hardcoded DPDP copy in a generic 'Custom' component (see ui_bugs) — small data-driven refactor recommended."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (38/38)", "frontend": "100% on iter-3 acceptance criteria; 1 medium copy bug on IFRS section heading"},
+  "test_credentials": "ADMIN_API_KEY=dmosh_admin_2026_secure_key_change_me (header x-admin-key). /app/memory/test_credentials.md still empty — non-blocking but should be populated.",
+  "seed_data_creation": "No new seed data. Backend startup hook continues to idempotently seed 3 resources. Test runs created TEST_-prefixed contacts/bookings/leads/applications/newsletter entries.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend URL: https://ca697697-9cec-49ca-b670-36dfb139aac5.preview.emergentagent.com. Admin key: dmosh_admin_2026_secure_key_change_me. Backend tests need REACT_APP_BACKEND_URL exported before pytest: `export $(grep -v '^#' /app/frontend/.env | xargs) && pytest /app/backend/tests/ -v`. Frontend has 9 service categories now (added 'financial-advisory'). IFRS-Ind-AS service has hasCustomContent and lives under /services/financial-advisory/ifrs-ind-as-advisory. CustomServiceDetail in ServiceDetailPage.jsx is shared by DPDP + IFRS — beware DPDP-specific copy/test-ids leaking.",
+  "rca of the issue": "IFRS page DPDP-copy leak — RCA: CustomServiceDetail() in /app/frontend/src/pages/ServiceDetailPage.jsx was originally written for DPDP only and the H2 'Three integrated practices — engineered for DPDP Act readiness.' was hardcoded directly in JSX (line ~339). When the IFRS-Ind-AS service was added with content.image + content.pillars, it reused the same component without parameterising the heading. Reproduction: visit /services/financial-advisory/ifrs-ind-as-advisory, scroll to the 'How we deliver' section. Mitigation: add a `pillarsHeading` (and optionally `automationIntroCopy`) field to /app/frontend/src/data/service-content.js entries and read it in CustomServiceDetail with a sensible default."
+}

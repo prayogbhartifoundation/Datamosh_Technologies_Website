@@ -1,6 +1,6 @@
 import { Link, useParams, Navigate } from "react-router-dom";
 import { ArrowRight, ChevronRight, CheckCircle2, FileText, Target, Wrench, Award, HelpCircle, ShieldCheck, BookOpen, Cog } from "lucide-react";
-import { SERVICE_CATEGORIES, COMPLIANCE_FRAMEWORKS } from "@/data/site";
+import { SERVICE_CATEGORIES, COMPLIANCE_FRAMEWORKS, CATEGORY_IMAGES } from "@/data/site";
 import { SERVICE_CONTENT } from "@/data/service-content";
 import SEO, { serviceSchema, faqSchema, breadcrumbSchema } from "@/components/SEO";
 
@@ -113,7 +113,13 @@ export default function ServiceDetailPage() {
               </div>
             </div>
             <div className="lg:col-span-4">
-              <div className="border border-slate-200 rounded-sm p-6 bg-slate-50">
+              <div className="aspect-[4/3] overflow-hidden rounded-sm border border-slate-200 bg-slate-100 shadow-sm relative">
+                {CATEGORY_IMAGES[cat.slug] && (
+                  <img src={CATEGORY_IMAGES[cat.slug]} alt="" className="w-full h-full object-cover" />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0F1758]/40 to-transparent" />
+              </div>
+              <div className="border border-slate-200 rounded-sm p-6 bg-slate-50 mt-5">
                 <div className="text-xs uppercase tracking-widest text-[#EA580C] mb-3">Engagement</div>
                 <ul className="space-y-3 text-sm text-slate-700">
                   <li className="flex justify-between"><span className="text-slate-500">Typical duration</span><span className="font-semibold">3–6 weeks</span></li>
@@ -256,6 +262,7 @@ function Block({ icon: Icon, title, children }) {
 // ============================================================
 function CustomServiceDetail({ cat, svc, Icon, content }) {
   const pillarIcons = [BookOpen, ShieldCheck, FileText];
+  const heroImage = content.image || CATEGORY_IMAGES[cat.slug];
   return (
     <div data-testid="service-detail-page">
       <SEO
@@ -297,7 +304,7 @@ function CustomServiceDetail({ cat, svc, Icon, content }) {
               <p className="mt-6 text-lg text-slate-700 leading-relaxed">{content.intro}</p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <Link to="/contact" className="inline-flex items-center gap-2 bg-[#1E2C9A] text-white px-6 py-3 text-sm font-medium rounded-sm hover:bg-[#0F1758] transition" data-testid="dpdp-cta-consult">
-                  Speak with a DPDP advisor <ArrowRight className="h-4 w-4" />
+                  Speak with an advisor <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link to={`/services/${cat.slug}`} className="inline-flex items-center gap-2 border border-slate-300 text-slate-900 px-6 py-3 text-sm font-medium rounded-sm hover:border-[#1E2C9A] hover:text-[#1E2C9A] transition">
                   Back to {cat.name}
@@ -305,13 +312,18 @@ function CustomServiceDetail({ cat, svc, Icon, content }) {
               </div>
             </div>
             <div className="lg:col-span-4">
-              <div className="border border-slate-200 rounded-sm p-6 bg-slate-50">
+              {heroImage && (
+                <div className="aspect-[4/3] overflow-hidden rounded-sm border border-slate-200 shadow-sm">
+                  <img src={heroImage} alt={svc.name} className="w-full h-full object-cover" />
+                </div>
+              )}
+              <div className="border border-slate-200 rounded-sm p-6 bg-slate-50 mt-5">
                 <div className="text-xs uppercase tracking-widest text-[#EA580C] mb-3">Programme highlights</div>
                 <ul className="space-y-3 text-sm text-slate-700">
                   <li className="flex justify-between"><span className="text-slate-500">Approach</span><span className="font-semibold">Advisory + Automation</span></li>
                   <li className="flex justify-between"><span className="text-slate-500">Coverage</span><span className="font-semibold">End-to-end</span></li>
-                  <li className="flex justify-between"><span className="text-slate-500">Tooling</span><span className="font-semibold">Consent, DPIA, GRC</span></li>
-                  <li className="flex justify-between"><span className="text-slate-500">Operating model</span><span className="font-semibold">DPO-as-a-Service</span></li>
+                  <li className="flex justify-between"><span className="text-slate-500">Tooling</span><span className="font-semibold">Purpose-built</span></li>
+                  <li className="flex justify-between"><span className="text-slate-500">Operating model</span><span className="font-semibold">Practitioner-led</span></li>
                 </ul>
               </div>
             </div>

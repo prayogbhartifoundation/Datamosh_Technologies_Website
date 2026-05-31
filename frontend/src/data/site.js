@@ -5,7 +5,9 @@ import {
   Globe2, Gauge, BookOpen, Briefcase, GraduationCap, Leaf, Lightbulb,
   Factory, ScanLine, Brain, Boxes, GitBranch, Mail, MapPin, Phone,
   Banknote, Stethoscope, Landmark, Radio, Hammer, Zap, ShoppingBag,
-  School, Rocket, CloudCog, BedDouble, Building, Bug, Eye, Users
+  School, Rocket, CloudCog, BedDouble, Building, Bug, Eye, Users,
+  Calculator, TrendingUp, FileBarChart, BarChart3, PiggyBank, Scale,
+  Receipt, Wallet, ClipboardCheck, LineChart, HandCoins, ChartBar
 } from "lucide-react";
 
 export const COMPANY = {
@@ -20,6 +22,19 @@ export const COMPANY = {
   phone: "+91 80 4567 8900",
   hq: "Bengaluru, India",
   founded: "2018",
+};
+
+// Hero images per service category (used on category + detail landing pages)
+export const CATEGORY_IMAGES = {
+  cybersecurity: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+  "compliance-grc": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+  "deep-tech-ai": "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+  "digital-transformation": "https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+  "iot-ot-critical": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+  "green-energy-esg": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+  "startup-innovation": "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+  "training-certification": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+  "financial-advisory": "https://images.unsplash.com/photo-1554224154-26032ffc0d07?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
 };
 
 // 8 service categories, with full nested service lists
@@ -188,6 +203,36 @@ export const SERVICE_CATEGORIES = [
       { slug: "soc-analyst-program", name: "SOC Analyst Program", icon: Activity },
       { slug: "skill-development", name: "Skill Development Programs", icon: GraduationCap },
       { slug: "corporate-training", name: "Corporate Training", icon: Briefcase },
+    ],
+  },
+  {
+    slug: "financial-advisory",
+    name: "Financial Accounting Advisory",
+    icon: Calculator,
+    short: "Big-4-grade FAAS — IFRS, IPO readiness, technical accounting & CFO advisory.",
+    description:
+      "End-to-end financial accounting advisory for CFOs and audit committees — IFRS / Ind AS implementation, technical accounting opinions, IPO readiness, M&A accounting, SOX/ICFR, ESG reporting and finance transformation. Delivered by qualified CAs, CPAs and ex-Big-4 practitioners.",
+    services: [
+      { slug: "ifrs-ind-as-advisory", name: "IFRS / Ind AS Advisory", icon: BookOpen, hasCustomContent: true },
+      { slug: "technical-accounting", name: "Technical Accounting Consultations", icon: FileBarChart },
+      { slug: "gaap-conversion", name: "GAAP Conversion (US GAAP / IFRS / Ind AS)", icon: Layers },
+      { slug: "financial-close-optimization", name: "Financial Reporting & Close Optimization", icon: ClipboardCheck },
+      { slug: "ipo-readiness", name: "IPO Readiness & Capital Markets", icon: TrendingUp },
+      { slug: "ma-accounting", name: "Business Combinations & M&A Accounting", icon: HandCoins },
+      { slug: "revenue-recognition", name: "Revenue Recognition (IFRS 15 / ASC 606)", icon: Receipt },
+      { slug: "lease-accounting", name: "Lease Accounting (IFRS 16 / ASC 842)", icon: FileSearch },
+      { slug: "stock-based-comp", name: "Stock-Based Compensation Accounting", icon: PiggyBank },
+      { slug: "consolidation-group-reporting", name: "Consolidation & Group Reporting", icon: Building2 },
+      { slug: "fund-accounting", name: "Fund & Investment Accounting", icon: Wallet },
+      { slug: "sox-icfr", name: "SOX / Internal Controls over Financial Reporting", icon: Scale },
+      { slug: "cfo-advisory", name: "CFO Advisory & Finance Transformation", icon: LineChart },
+      { slug: "treasury-cash-management", name: "Treasury & Cash Management", icon: Banknote },
+      { slug: "forensic-accounting", name: "Forensic Accounting & Investigation", icon: Eye },
+      { slug: "audit-support", name: "Statutory Audit Support", icon: ClipboardCheck },
+      { slug: "esg-reporting-faas", name: "ESG / Sustainability Reporting (BRSR · IFRS S1/S2)", icon: Leaf },
+      { slug: "tax-accounting", name: "Tax Accounting & Provisioning", icon: Calculator },
+      { slug: "transaction-advisory", name: "Transaction Advisory & Due Diligence", icon: BarChart3 },
+      { slug: "outsourced-controllership", name: "Outsourced Controllership", icon: Briefcase },
     ],
   },
 ];
