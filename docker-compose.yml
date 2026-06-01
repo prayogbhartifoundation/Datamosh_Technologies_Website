@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  # Frontend React App
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: datamosh-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_BACKEND_URL=https://apii.datamoshtechnologies.com
+      - REACT_APP_DOMAIN=datamoshtechnologies.com
+    networks:
+      - datamosh-network
+    restart: unless-stopped
+
+  # Backend API Server
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: datamosh-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017
+      - DB_NAME=test_database
+      - CORS_ORIGINS=https://datamoshtechnologies.com,https://www.datamoshtechnologies.com,https://apii.datamoshtechnologies.com
+      - ADMIN_API_KEY=${ADMIN_API_KEY}
+      - APP_DOMAIN=datamoshtechnologies.com
+    depends_on:
+      - mongodb
+    networks:
+      - datamosh-network
+    restart: unless-stopped
+
+  # MongoDB Database
+  mongodb:
+    image: mongo:6.0
+    container_name: datamosh-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=test_database
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - datamosh-network
+    restart: unless-stopped
+
+  # Nginx Reverse Proxy with Security
+  nginx:
+    image: nginx:alpine
+    container_name: datamosh-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./frontend/build:/app/frontend/build:ro
+      - ./ssl/fullchain.pem:/etc/nginx/ssl/fullchain.pem:ro
+      - ./ssl/privkey.pem:/etc/nginx/ssl/privkey.pem:ro
+      - ./certbot/conf:/etc/letsencrypt:ro
+      - ./certbot/www:/var/www/certbot:ro
+      - nginx_logs:/var/log/nginx
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - datamosh-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  datamosh-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local
+  nginx_logs:
+    driver: local
