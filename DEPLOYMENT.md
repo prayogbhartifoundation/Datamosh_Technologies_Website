@@ -304,5 +304,18 @@ For issues or questions:
 
 ---
 
+## Traditional Non-Docker Deployment
+
+If you want to deploy without Docker, use the host-based guide in `HOST_DEPLOYMENT.md`.
+
+This covers:
+- Python virtualenv setup for backend
+- PM2 process management for Uvicorn
+- Yarn install and React build for frontend
+- MongoDB on the host
+- Nginx reverse proxy for `datamoshtechnologies.com`, `www.datamoshtechnologies.com`, and `apii.datamoshtechnologies.com`
+
+---
+
 **Last Updated:** June 2026  
 **Version:** 1.0
