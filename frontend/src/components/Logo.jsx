@@ -45,3 +45,4 @@ export default function Logo({ variant = "light", className = "h-12 w-auto" }) {
     />
   );
 }
+
